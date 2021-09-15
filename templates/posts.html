@@ -5,8 +5,21 @@
 <title>Posts</title>
 {% endblock %}
 
-
 {% block body %}  
+
+<hr>
+<h2>Create new blog post: </h2>
+<form action="/posts" method="POST">  <!--create form to fill db-->
+   Title:  <input type="text" name = 'title' id = 'title'>
+   <br>
+   <br>
+   Post: <input type="text" name="content" id="content">
+   <br>
+   <br>
+   <input type="submit" value="Post">
+</form>
+<hr>
+
 <h1>All posts</h1>
 
     {% for post in posts %}

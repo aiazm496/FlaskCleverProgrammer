@@ -45,7 +45,8 @@ def posts():
     if request.method == 'POST':  #request is what is sent by form
         post_title = request.form['title']
         post_content = request.form['content']
-        new_post = BlogPost(title = post_title, content = post_content,author = 'Akash')
+        author = request.form['author']
+        new_post = BlogPost(title = post_title, content = post_content,author = author)
 
         #adding to db from form
         db.session.add(new_post)
@@ -53,15 +54,30 @@ def posts():
         return redirect('/posts')  #url to return back
 
     else:
-        all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
+        all_posts = BlogPost.query.order_by(BlogPost.date_posted).all() #list of BlogPost object like BlogPost 1
         return render_template('posts.html', posts = all_posts)
 # we have defined variable posts here to store all_data
+#from app import db,BlogPost
 # now we have write code in html to display it on posts.html
 #from app import db,BlogPost
-# get BlogPost objecy by id obj = BlogPost.query.get(1)  enter id number
+# get BlogPost object by id obj = BlogPost.query.get(1)  enter id number
 #to filter list of BlogPost object -> BlogPost.query.filter_by(title = 'Modi').all()
-#to get title  of id 1-> BlogPost.query.get(1).title
+#to get title  of id 1-> BlogPost.query.get(1).title  id is always primary key
 #to change BlogPost.query.get(1).title = 'Narendra Modi' and db.session.commit()
+#delete a object 
+# db.session.delete(BlogPost.query.get(3)) then db.session.commit()
+
+@app.route('/posts/delete/<int:id>')
+def delete(id):
+    post = BlogPost.query.get_or_404(id)  #return BlogPost object
+    db.session.delete(post)
+    db.session.commit()
+    return redirect('/posts')
+
+@app.route('/posts/edit/<int:id>')
+def edit(id):
+    post = BlogPost.query.get_or_404(id)  #return BlogPost object
+    
 
 #@app.route('/') #nothing in url it is like localhost:5000/
 @app.route('/home/<string:name>')  # it is like localhost:5000/home
@@ -75,6 +91,10 @@ def helloUser(name,id):
 @app.route('/onlyget',methods = ['GET'])
 def get_req():
     return "You can only get this webpage"
+
+@app.route('/who/<string:name>')
+def who(name):
+    return "My name is " + name + "."  + " I am " + str(25) + " yrs old."
 
 if __name__ == '__main__':  #to see messages in cmd
     app.run(debug=True) 

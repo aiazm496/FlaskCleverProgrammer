@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
 
 
-{% block head %}  
+{% block head %}
 <title>Home</title>
 {% endblock %}
 
 
-{% block body %}  
+{% block body %}
+<br>
 <h1>Home Page</h1>
+<br>
+<div class="bg-light p-5 rounded">    <!--  -->
+    <div class="col-sm-8 mx-auto">
+        <h1>Welcome</h1>
+        <p>Welcome to akash blog. Here we will be discussing datasets.</p>
+        <p>Connect at my gitbub  <a href="http://www.github.com/aiazm496"> (link)</a> for working with me on cool projects.</p>
+        <a class="btn btn-primary" href="/posts" role="button">Go to my posts &raquo;</a>
+    </div>
+</div>
+
 {% endblock %}

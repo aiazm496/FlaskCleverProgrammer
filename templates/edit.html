@@ -10,7 +10,10 @@
 
 <hr>
 <h2>Edit: </h2>
-<form action="/posts/edit/{{post.id}}" method="POST">  <!--create form to fill db-->
+<!--create form to fill db-->
+
+<!-- 
+<form action="/posts/edit/{{post.id}}" method="POST">  
    Title:  <input type="text" name = 'title' id = 'title' value="{{post.title}}">
    <br>
    <br>
@@ -21,6 +24,27 @@
    <br>
    <input type="submit" value="Save">
 </form>
+-->
+
+<!-- Bootstrap form-->
+<form action="/posts/edit/{{post.id}}" method="POST">  <!--create form to fill db-->
+    Title:  
+    <!-- <input type="text" name = 'title' id = 'title'>-->
+    <input class="form-control" type="text"  name = 'title' id = 'title' value="{{ post.title }}" aria-label="Enter title">
+    <br>
+    Post: 
+    <!-- <input type="text" name="content" id="content"> -->
+ <div class="form-group">   <!-- Bootstrap form text area -->
+     <textarea class="form-control" id="content" name = "content" rows="3">{{ post.content }}</textarea>
+ </div>
+    <br>
+    Author : 
+    <!--<input type="text" name="author" id="author"> -->
+    <input class="form-control" type="text"  name = 'author' id = 'author' aria-label="Enter author" value="{{post.author}}">
+     <br>
+    <input type="submit" value="Save" class = 'btn btn-success'>
+ </form>
+
 <hr>
 
 {% endblock %}

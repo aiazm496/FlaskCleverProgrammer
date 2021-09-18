@@ -74,10 +74,20 @@ def delete(id):
     db.session.commit()
     return redirect('/posts')
 
-@app.route('/posts/edit/<int:id>')
+@app.route('/posts/edit/<int:id>',methods = ['GET','POST'])
 def edit(id):
-    post = BlogPost.query.get_or_404(id)  #return BlogPost object
-    
+
+    if request.method == 'POST':
+        post = BlogPost.query.get_or_404(id)  #return BlogPost object
+        post.title = request.form['title']
+        post.content = request.form['content']
+        post.author = request.form['author']
+        db.session.commit()
+        return redirect('/posts')
+    else:    # when we arrive at page
+        post = BlogPost.query.get_or_404(id)
+        return render_template('edit.html',post = post)
+
 
 #@app.route('/') #nothing in url it is like localhost:5000/
 @app.route('/home/<string:name>')  # it is like localhost:5000/home
